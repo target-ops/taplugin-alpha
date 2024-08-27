@@ -1,17 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>AAAA Plugin</title>
-</head>
-<body>
-    <h1>Math Plugin</h1>
-    <h1>Math Plugin</h1>
-    <h1>Math Plugin</h1>
-    <h1>Math Plugin</h1>
-    <input type="number" id="num1" placeholder="Number 1">
-    <input type="number" id="num2" placeholder="Number 2">
-    <button onclick="
-    ">Add</button>
-    <div id="result"></div>
-</body>
+  <head>
+    <title>Target Terminal</title>
+    <style>
+      /* Add any plugin-specific styles here */
+      iframe {
+        border: none;
+        width: 100%;
+        height: 100%; /* Adjust as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Target Terminal test ofir</h1>
+    <iframe id="terminal-iframe" src=""></iframe>
+    <div id="plugin-controls">
+      <!-- Add any plugin-specific controls here -->
+    </div>
+
+    <script>
+      console.log('Terminal plugin script loaded');
+      function loadTerminal() {
+        console.log('Loading terminal...');
+        fetch('http://localhost:8080/api/core/portread/terminal-app')
+          .then(response => {
+            console.log('Fetch request completed');
+            console.log('Terminal plugin script loaded');
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the response as JSON
+          })
+          .then(data => {
+            const port = data.port; // Extract the port from the JSON object
+            console.log('Port received:', port);
+            const iframe = document.getElementById('terminal-iframe');
+            if (!iframe) {
+              console.error('No iframe element found');
+              return;
+            }
+            iframe.src = `http://localhost:${port}`;
+          })
+          .catch(error => {
+            console.error('Fetch error:', error);
+          });
+      }
+      console.log('Terminal plugin script 2');
+      // Load the terminal when the plugin is loaded
+      // window.addEventListener('DOMContentLoaded', loadTerminal);
+      loadTerminal();
+
+      // You can add more plugin-specific functionality here
+    </script>
+  </body>
 </html>
