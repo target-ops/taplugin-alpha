@@ -86,7 +86,7 @@ func startTTYD(port string) error {
 	}
 
 	// Create the command to run ttyd with tmux
-	args := []string{"-W", "-p", port, "--cwd", homeDir, "tmux", "attach-session", "-t", sessionName, "set", "-t", sessionName ,":status off"}
+	args := []string{"-W", "-p", port, "--cwd", homeDir, "tmux", "attach-session", "-t", sessionName, "&&", "tmux", "set", "-t", sessionName ,":status off"}
 	fmt.Println("ttyd " + strings.Join(args, " "))
 	ttydCmd = exec.Command("ttyd", args...)
 	// args = []string{}
