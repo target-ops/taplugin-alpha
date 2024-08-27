@@ -89,7 +89,7 @@ func startTTYD(port string) error {
 	// fmt.Println("ttyd " + strings.Join(args, " "))
 	// ttydCmd = exec.Command("ttyd", args...)
 	command := fmt.Sprintf("ttyd -W -p %s --cwd %s tmux attach-session -t %s && tmux set -t %s ':status off'", port, homeDir, sessionName, sessionName)
-
+	fmt.Println(command)
 	ttydCmd = exec.Command("sh", "-c", command)
 
 
